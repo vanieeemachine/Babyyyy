@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chikkii 💕</title>
+
+<style>
+body {
+    margin: 0;
+    height: 100vh;
+    background: linear-gradient(135deg, #ffb6c1, #ff69b4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Poppins', sans-serif;
+    overflow: hidden;
+}
+
+/* Floating hearts */
+.heart {
+    position: absolute;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 20px;
+    animation: float 6s linear infinite;
+}
+
+@keyframes float {
+    0% { transform: translateY(100vh) scale(0.5); opacity: 0; }
+    50% { opacity: 1; }
+    100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
+}
+
+.card {
+    background: white;
+    padding: 30px 20px;
+    border-radius: 25px;
+    text-align: center;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    width: 90%;
+    max-width: 350px;
+    z-index: 2;
+}
+
+h1 {
+    color: #ff4d6d;
+    font-size: 24px;
+    margin-bottom: 25px;
+}
+
+.buttons {
+    position: relative;
+    height: 120px;
+}
+
+button {
+    padding: 12px 25px;
+    font-size: 16px;
+    border-radius: 30px;
+    border: none;
+    cursor: pointer;
+}
+
+#yes {
+    background: #ff4d6d;
+    color: white;
+}
+
+#no {
+    background: #ccc;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 60px;
+}
+
+.message {
+    margin-top: 15px;
+    color: #ff4d6d;
+    font-weight: 600;
+}
+
+/* Celebration */
+.confetti {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    animation: fall 4s linear infinite;
+}
+
+@keyframes fall {
+    0% { transform: translateY(-50px) rotate(0deg); }
+    100% { transform: translateY(110vh) rotate(360deg); }
+}
+</style>
+</head>
+
+<body>
+
+<div class="card" id="card">
+    <h1>Chikkii 🥺💖<br>Will you be my Valentine?</h1>
+
+    <div class="buttons">
+        <button id="yes">YES 💕</button>
+        <button id="no">NO 🙈</button>
+    </div>
+
+    <div class="message" id="msg"></div>
+</div>
+
+<script>
+const noBtn = document.getElementById("no");
+const msg = document.getElementById("msg");
+const yesBtn = document.getElementById("yes");
+
+// NO button runs away (mobile friendly)
+noBtn.addEventListener("touchstart", moveNo);
+noBtn.addEventListener("mouseover", moveNo);
+
+function moveNo() {
+    const x = Math.random() * 200 - 100;
+    const y = Math.random() * 80;
+    noBtn.style.transform = `translate(${x}px, ${y}px)`;
+    msg.innerText = "Please say yes 🥺💔";
+}
+
+// YES celebration
+yesBtn.addEventListener("click", () => {
+    document.body.innerHTML = `
+        <h1 style="color:white;text-align:center;font-size:36px;">
+            YAYYYY 💖🎉<br>
+            I love you, Chikkii 💕
+        </h1>`;
+    startConfetti();
+});
+
+// Confetti
+function startConfetti() {
+    for (let i = 0; i < 200; i++) {
+        const confetti = document.createElement("div");
+        confetti.className = "confetti";
+        confetti.style.left = Math.random() * window.innerWidth + "px";
+        confetti.style.background = `hsl(${Math.random() * 360}, 100%, 50%)`;
+        confetti.style.animationDuration = (Math.random() * 3 + 2) + "s";
+        document.body.appendChild(confetti);
+    }
+}
+
+// Hearts background
+setInterval(() => {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerText = "❤";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = Math.random() * 20 + 10 + "px";
+    heart.style.animationDuration = Math.random() * 4 + 4 + "s";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 6000);
+}, 300);
+</script>
+
+</body>
+</html>
